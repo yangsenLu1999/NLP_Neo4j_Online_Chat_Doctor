@@ -1,0 +1,39 @@
+- 问题1: (老师提出), 在第八章的模型中, 负样本可不可以按照第五章的方法去构造?
+  - 逻辑分析: 不能用倒叙样本！
+  - 原因:
+    - 1: 第五章, 任务是看一句话是不是正常的话。第八章, 前后两句话语义是否连贯。
+    - 2: 分析结果是不是真实的结果?! (开放性探索问题)
+- 问题2: 设置参数max_len=最大的句子长度，有什么优缺点？
+  - 1: 如果最大的句子长度偏离主体太多, 会有太多的0填充, 会造成模型理解语义的偏差。
+  - 2: 增加了大量的无效计算。
+  - 3: 现实中的场景大量的符合正态分布, 取max_length, 偏离均值太多。
+- 问题3: 有个问题，maxlength需要是head的整数倍吗？
+  - 张量[batch_size, sequence_length, embedding_dim]
+  - 注意力头head --- embedding_dim
+  - 考虑max_length --- sequence_length
+- 问题4: 必须要填充0和截断吗？原语句长度不行吗？或者最大长度设定之后，只截断，不填充可以吗？
+  - 必须填充!!!
+  - 设计根本问题: 输入模型的张量维度保持一致
+  - tensor1正常的 [1, 50, 768] , tensor2不正常 [1, 28, 768] , 直接报错!!!
+- 问题5: 如果 输出是 （0,0）那怎么预测啊 ？
+  - 如果两个输出值完全相等, 平台会有自动处理机制, 随机选, 默认选第一个。
+- 问题6: 直接从20*768 就输出到维度8 会不会跳跃太大了，使用128 大一点的数 代替 8 之类的也可以的吧？
+  - 都可以, 128参数量加大很多, 需要更长时间的微调训练。
+- 问题7: lambda里面的x/y不是text1和text2吧？
+  - 这里面只是lambda语法表示, 不代表text1, text2
+- 问题8: train_running_loss * batch_size 好像没理解 ?
+  - train_loss = criterion(train_outputs, train_labels) 这句代码是根源
+  - 因为nn.CrossEntropyLoss()默认的返回的loss就是一个批次的平均损失
+  - 后续需要乘以batch_size把分母给补回来
+  - (x1/32 + x2/32 + x3/32 + ..... + xn/32) / N
+  - (x1/32 + x2/32 + x3/32 + ..... + xn/32) * 32 / N
+- 问题9: 工业界Pytorch追赶Tensroflow
+  - Tensorflow : 2014年第一版, 2012深度学习, 第一版是C++
+  - Pytorch: 2017年第一版, Python直接开发
+  - 2017年发现Pytorch迅速追赶, 同时Python人工智能领域一统江湖, 谷歌急了！
+  - 谷歌直接在Tensorflow外面加了一层Python外衣。
+- 问题10: gunicorn -w 1 -b 0.0.0.0:5001 app:app ；这两个app分别指什么呢？
+  - 1: 第一个app, 代码文件叫app.py
+  - 2: 第二个app, 指代Flask的服务对象, @app.route()
+  - 3: 比如你的程序代码文件叫hello_kitty.py, 内部定义cat = Flask(__name__)
+    - gunicorn -w 1 -b 0.0.0.0:5001 hello_kitty:cat

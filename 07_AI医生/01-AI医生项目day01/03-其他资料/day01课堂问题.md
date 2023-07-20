@@ -1,0 +1,12 @@
+- 问题1:Unit类似的接口，除了百度还有微软，谷歌，亚马逊等
+- 问题2：实际公司开发肯定会用到，衡量人力，时间成本
+- 问题3：开发者手册的固定流程，
+  - result -> response_list -> schema (intent_confidence) -> action_list -> say
+- 问题4：肯定支持多轮对话，只是效果上不尽如人意(本质是图灵测试的问题)
+- 问题5：Flask框架主要用于Web网页开发，服务。同时也是Pytorch官方指定的AI部署框架。
+- 问题6：Redis基于内存，运行特别快，优于Mysql
+- 问题7：Redis, Flask这样的服务一旦开启，就是24 * 365运行，没有特殊情况不要停机
+- 问题8：标签match (e: Employee) == select * from Employee
+- 问题9：有很多neo4j程序员特别喜欢merge (放弃create , match)
+- 问题10：因为有多条数据的原因，删除多个节点+1/2倍关系
+- 问题11：标签名字是固定的，节点的名字程序员自己随便起名(name: Label)

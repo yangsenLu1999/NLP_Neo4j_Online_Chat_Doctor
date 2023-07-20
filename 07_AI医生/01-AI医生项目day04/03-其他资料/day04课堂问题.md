@@ -1,0 +1,40 @@
+- 问题1: 前三天课程的内容梳理!
+  - 1: 任务式对话系统，聊天功能外包给了Unit
+  - 2: Lambda架构 - Twitter (离线 + 在线)
+  - 3: 阿里云，腾讯云，服务器7474端口需要申请开放。
+  - 4: Cypher语法(浏览器端), neo4j-driver (Python代码去操作图数据库)
+  - 5: 命名实体审核任务 (80 - 85%)
+- 问题2: NLP 四大任务 (分词， 分类，生成式，多句关系)
+  - jieba分词, hanlp工具
+- 问题3: 为什么BiLSTM的线性层不用除2?
+  - hidden_size = 100
+  - self.hidden_size = 50
+  - 双向的LSTM网络，拼接到output的时候变回100
+  - nn.Linear(100, tag_size)
+- 问题4: 老师提的, self.hidden_size = hidden_size 这一行改动，还有哪里需要改动?
+  - 输入hidden_size = 100
+  - 双向LSTM100，经历拼接后的output变成200
+  - nn.Linear(200, tag_size)
+  - nn.Linear(hidden_size * 2, tag_size)
+- 问题5: 关于词向量的问题
+  - 手写的word2id就是调用的Tokenizer()
+  - fasttext: 工作中一定要果断的用, 学习的时候尽量不用
+- 问题6: 工作中做项目的数据从哪儿拿?
+  - 一定要从业部门拿！！！
+  - 一定要从合作公司拿！！！
+- 问题7: embedding cuda 优化仅支持 SGD 、 SparseAdam？
+  - 选择优化函数：只有选SGD, SparseAdam的时候，未来用GPU训练的时候才可以优化embedding层
+- 问题8: BilSTM + CRF为什么训练难度很高？
+  - 本质也是个有监督训练 (label需要人工标注!)
+- 问题9: 关于张量的shape定义(num_layers \* num_directions, batch, hidden_size)
+  - 在以前 (num_layers, batch_size, hidden_size)都是单向的网络, 相当于乘1
+- 问题10: 隐藏层分成了两部分？
+  - h0_forward = [1, 8, 100]
+  - h0_backward = [1, 8, 100]
+  - h0 = [2, 8, 100]
+- 问题11: CRF并不等同于正则表达式.
+  - CRF也是一个模型，转移矩阵，发射矩阵参数都需要学习。
+- 问题12: 顺丰的NLP工程师，加假设：发快递的时候，填进去的人名，手机号，地址，会故意写错，或者乱写吗？？？
+  - 不会！！！所以模型的训练难度不高。
+  - 不符合约束条件的查询直接被pass掉了
+

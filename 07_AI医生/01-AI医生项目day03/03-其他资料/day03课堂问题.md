@@ -1,0 +1,14 @@
+- 问题1: 为什么要加负号 p.data.add_(-learning_rate, p.grad.data)
+  - p.data = p.data + (p.grad.data * - learning_rate)
+  - p.data = p.data - p.grad.data * learning_rate
+- 问题2：RNN一定序列化的输入。
+  - 如果想改进，直接转换成 transformer
+- 问题3: 关于命名实体审核对象？
+  - 1: 疾病名称需要审核 - 文件名需要审核
+  - 2: 症状名称需要审核 - 文件内容需要审核
+- 问题4: 面试中考的算法题, 时间复杂度!!!!!!!!
+- 问题5: GRU实现英译法
+  - 训练过程和预测过程非常接近
+  - 对比: 如果用transformer实现英译法 (训练和预测有很大的差别)
+  - 重点: 预测的时候Decoder端本质上是单循环, 单步输出
+

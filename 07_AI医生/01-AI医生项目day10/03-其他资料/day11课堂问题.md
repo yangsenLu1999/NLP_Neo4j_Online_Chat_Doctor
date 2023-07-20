@@ -1,0 +1,29 @@
+- 问题1: 为啥不用supervisor启动wr.py ?
+  - 可以添加！
+  - [program:werobot]
+  - command=python wr.py
+  - 下面跟一堆配置信息(也可以不给)
+  - 当我们回到命令行中端的时候 - supervisorctl
+  - main_server   RNNNING
+  - redis                RUNNING
+  - werobot          RUNNING
+- 问题2: 这个nohup启动了咋退出？
+  - 1: 你明确的知道启动的进程名字
+    - ps aux | grep program_name  显示进程的相关信息(pid)
+    - kill -9 pid
+  - 2: 你对相关信息不明确
+    - netstat -nltp  显示当前服务器的所有监听端口  5000 : pid - program
+    - kill -9 pid
+- 问题3: 关于反向传播的推导。
+  - 核心: 在于损失函数对于Wi,j的偏导, 也就是网络权重。
+  - 因为optimizer.step()更新参数, 更新就是这些Wi,j = Wi,j - lr * delta(w)
+- 问题4: 可不可以 脱离 梯度?
+  - 答案: 不可以！
+  - Hinton提出的反向传播的算法, 建立在梯度更新之上的。
+    - 1: 面对的求解问题, 本质上都没有算术解！(没有方程解！)
+      - y = a * x + b ;  y = a1 * x1 + a2 * x2 + b
+    - 2: 涉及到神经网络的极限！！！
+      - 只能解决在几何上连续可导的问题！！！
+- 问题5: 关于MASK在Transformer中起的作用? (老师提)
+  - Encoder: MASK - 为了让模型不过多的知晓信息。
+  - Decoder: MASK - 解码器端为了未来的信息不泄露。
